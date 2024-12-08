@@ -1,0 +1,36 @@
+services:
+  postgresdb:
+    image: postgres
+    build:
+      context: ./node_rest_api
+      dockerfile: ./Docker/db/Dockerfile
+    restart: unless-stopped
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=123456
+      - POSTGRES_DB=reedsy_challenge
+    ports:
+      - 5432:5432
+    volumes:
+      - db:/var/lib/postgres
+  node:
+    depends_on:
+      - postgresdb
+    build:
+      context: ./node_rest_api
+      dockerfile: ./Docker/node/Dockerfile
+    restart: unless-stopped
+    command: npm run start:dev
+    environment:
+      - NODE_ENV=development
+      - DB_HOST=localhost
+      - DB_USER=postgres
+      - DB_PASSWORD=123456
+      - DB_PORT=5432
+      - DB_NAME=reedsy_challenge
+    volumes:
+      - ./node_rest_api:/home/usr/app/
+    ports:
+      - 4000:4000
+volumes:
+  db:
