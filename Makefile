@@ -29,3 +29,7 @@ dlf:
 # Enter node command line
 deb:
 	docker exec -it reedsy-challenge-node-node-1 sh
+#### DB COMMANDS ####
+# Enter db command line
+dedb:
+	docker exec -it reedsy-challenge-node-postgresdb-1 sh -c "psql -d reedsy_challenge -U postgres"
