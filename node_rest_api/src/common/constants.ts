@@ -1,11 +1,11 @@
 export enum BookExportFormats {
-  'pdf',
-  'epub',
+  pdf = 'pdf',
+  epub = 'epub',
 }
 
 export enum BookImportFormats {
-  'word',
-  'pdf',
-  'wattpad',
-  'evernote',
+  word = 'word',
+  pdf = 'pdf',
+  wattpad = 'wattpad',
+  evernote = 'evernote',
 }

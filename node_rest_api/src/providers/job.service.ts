@@ -3,6 +3,7 @@ import { JobEntity } from 'src/entities/job.entity';
 import { Repository } from 'typeorm';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Job } from 'src/dto/job.dto';
+import { BookExportFormats } from 'src/common/constants';
 
 @Injectable()
 export class JobService {
@@ -24,7 +25,7 @@ export class JobService {
       .groupBy('id')
       .addGroupBy('status')
       .getMany();
-    console.warn('result', jobs);
+
     return jobs.map((job) => ({ ...job, data: JSON.parse(job.data) }));
   }
 
@@ -61,5 +62,38 @@ export class JobService {
     job.status = status;
 
     await this.jobRepository.save(job);
+  }
+
+  /**
+   * Executes all the pending jobs, this should be replaced for a real processor,
+   * probably should be placed somewhere else
+   * @param id Job id
+   * @param status new status
+   */
+  async dummyJobExecute(): Promise<void> {
+    const jobs = await this.jobRepository.findBy({ status: 'pending' });
+
+    jobs.map((job) => {
+      this.updateJobStatus(job.id, 'in-progress');
+
+      let waitTimeSecs = 60;
+
+      if (job.type === 'export') {
+        const parseData: Job['data'] = JSON.parse(job.data);
+
+        switch (parseData.type) {
+          case BookExportFormats.pdf:
+            waitTimeSecs = 25;
+            break;
+          case BookExportFormats.epub:
+            waitTimeSecs = 10;
+            break;
+        }
+      }
+
+      setTimeout(() => {
+        this.updateJobStatus(job.id, 'finished');
+      }, waitTimeSecs * 1000);
+    });
   }
 }

@@ -16,9 +16,9 @@ export class BookService {
   async importBook(importOptions: BookImportOptions): Promise<Job['id']> {
     const newJobId = await this.jobService.createJob('import', importOptions);
 
-    setTimeout(() => {
-      this.jobService.updateJobStatus(newJobId, 'finished');
-    }, 60 * 1000);
+    // Do some import specific logic
+
+    this.jobService.dummyJobExecute();
 
     return newJobId;
   }
@@ -30,11 +30,9 @@ export class BookService {
   async exportBook(exportOptions: BookExportOptions): Promise<Job['id']> {
     const newJobId = await this.jobService.createJob('export', exportOptions);
 
-    const waitTimeSecs = exportOptions.type === BookExportFormats.pdf ? 25 : 10;
+    // Do some export specific logic
 
-    setTimeout(() => {
-      this.jobService.updateJobStatus(newJobId, 'finished');
-    }, waitTimeSecs * 1000);
+    this.jobService.dummyJobExecute();
 
     return newJobId;
   }
