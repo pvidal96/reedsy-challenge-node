@@ -6,7 +6,6 @@ import BookComponent from './BookComponent.vue'
 const props = defineProps<{ books: Book[] }>()
 
 const expandedBookId: Ref<number | null> = ref(null)
-
 // watch(currentPage, fetchBooks, { immediate: true })
 function onClickRow(bookId: Book['id']) {
   expandedBookId.value = bookId === expandedBookId.value ? null : bookId
