@@ -8,6 +8,7 @@ describe('BookComponent.vue Test', () => {
     const wrapper = shallowMount(BookComponent, {
       propsData: {
         book,
+        displaySynopsis: true,
       },
     })
 
@@ -17,6 +18,28 @@ describe('BookComponent.vue Test', () => {
     expect(wrapper.findAll('div.bookInfo').at(0)?.text()).toMatch(book.upvotes.toString())
     expect(wrapper.findAll('div.bookInfo').at(0)?.text()).toMatch(book.upvotes.toString())
     expect(wrapper.findAll('div.bookInfo').at(1)?.text()).toMatch(book.rating + '/10')
+  })
+
+  it('renders book with synopsis open', () => {
+    const wrapper = shallowMount(BookComponent, {
+      propsData: {
+        book,
+        displaySynopsis: true,
+      },
+    })
+
+    expect(wrapper.find('div.active').exists()).toBeTruthy()
+  })
+
+  it('renders book with synopsis closed', () => {
+    const wrapper = shallowMount(BookComponent, {
+      propsData: {
+        book,
+        displaySynopsis: false,
+      },
+    })
+
+    expect(wrapper.find('div.collapse').exists()).toBeTruthy()
   })
 })
 

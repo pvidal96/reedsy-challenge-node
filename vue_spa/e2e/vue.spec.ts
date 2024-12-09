@@ -65,7 +65,7 @@ test('Books are displayed correctly', async ({ page }) => {
   ).toHaveText('Amazon') //This could be obviously more precise
 
   // Display synopsis
-  const lastBook = list.locator('.book').last().locator('..')
+  const lastBook = list.locator('.book').last()
   const lastBookSynopsis = lastBook.locator('div').last()
   await expect(lastBookSynopsis, 'Synopsis is hidden').toHaveClass('collapse')
   await lastBook.first().click()

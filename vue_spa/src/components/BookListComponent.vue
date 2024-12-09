@@ -6,7 +6,7 @@ import BookComponent from './BookComponent.vue'
 const props = defineProps<{ books: Book[] }>()
 
 const expandedBookId: Ref<number | null> = ref(null)
-// watch(currentPage, fetchBooks, { immediate: true })
+
 function onClickRow(bookId: Book['id']) {
   expandedBookId.value = bookId === expandedBookId.value ? null : bookId
 }
@@ -22,19 +22,12 @@ function onClickRow(bookId: Book['id']) {
     </div>
     <div
       v-for="(book, index) in props.books"
+      class="bookListItem"
       :key="book.id"
       :style="{ backgroundColor: index % 2 === 0 ? '#faf9f7' : 'white', cursor: 'pointer' }"
       @click="onClickRow(book.id)"
     >
-      <BookComponent :book="book" />
-      <div
-        :class="{
-          active: book.id === expandedBookId,
-          collapse: book.id !== expandedBookId,
-        }"
-      >
-        {{ book.synopsis }}
-      </div>
+      <BookComponent :book="book" :displaySynopsis="book.id === expandedBookId" />
     </div>
   </div>
 </template>
@@ -56,16 +49,5 @@ function onClickRow(bookId: Book['id']) {
 .headerItem {
   width: 15%;
   padding-left: 0.5rem;
-}
-.bookList .collapse {
-  max-height: 0px;
-  overflow: hidden;
-  transition: max-height 1s;
-  padding: 0 2rem 0 2rem;
-}
-.bookList .active {
-  max-height: 600px;
-  transition: max-height 1s;
-  padding: 0 2rem 1rem 2rem;
 }
 </style>

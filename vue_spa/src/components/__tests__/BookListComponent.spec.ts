@@ -12,7 +12,7 @@ describe('BookListComponent.vue Test', () => {
     })
 
     // check that the book items are rendered
-    expect(wrapper.find('.bookList').findAll('div.collapse').length).toEqual(3)
+    expect(wrapper.find('.bookList').findAll('.bookListItem').length).toEqual(3)
   })
 })
 

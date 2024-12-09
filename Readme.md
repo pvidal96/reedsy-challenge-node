@@ -28,8 +28,6 @@ The main trade-off is the performance hit caused by having to compute the change
 
 ## 3. Node.js REST API
 
-### Solution
-
 ### Prequisites
 
 - Docker
@@ -158,3 +156,55 @@ Finally, I've added some simple unit tests and E2E tests that have almost 100% c
 ```
 
 ## 4. SPA
+
+### Prequisites
+
+- Docker
+- Make
+
+### Intructions
+
+1. From the main directory, build and start docker containers
+
+```bash
+make db
+```
+
+3. The SPA should be running in [http://localhost:5173/](http://localhost:5173/)
+
+### Commands
+
+1. Run tests
+
+Enter docker container
+
+```bash
+make def
+```
+
+Run unitary tests
+
+```bash
+npm run test:unit
+```
+
+Run e2e tests
+
+```bash
+npm run test:e2e
+```
+
+### Solution
+
+For the last exercise I started a new Vue project with a single page (HomeView). It will be a simple application with only a few components. These are the following
+
+- PaginationComponent: it represents the logic to perform pagination. It blocks going to a previous page if you're on the first one, or to the next if you're on the last one.
+- LoaderComponent: Just displays a loading message while the books are being fetched. It's currently useless because books are fetched from a file, not an API.
+- BookListComponent: Displays the book list table. It also handles the logic to collapse/expand only one book summary at a time.
+- BookComponent: Displays the book description and handles whether or not to display the book synopsis given a received prop.
+
+I also added a simple store system to simulate retrieving books from an api. It currently fetches them from a file, but it's ready to easily switch to an API.
+
+As for testing, I've created some simple unit tests as well as some end-to-end tests with Playwright to check basic functionality in the UI.
+
+Both applications are dockerised, but can run without docker (assuming you have the right node & other requirements installed).
