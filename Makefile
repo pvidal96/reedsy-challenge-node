@@ -29,6 +29,10 @@ dlf:
 # Enter node command line
 deb:
 	docker exec -it reedsy-challenge-node-node-1 sh
+# Enter vue command line
+def:
+	docker exec -it reedsy-challenge-node-vue-1 sh
+	
 #### DB COMMANDS ####
 # Enter db command line
 dedb:

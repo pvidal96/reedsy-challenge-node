@@ -156,3 +156,5 @@ Finally, I've added some simple unit tests and E2E tests that have almost 100% c
   }
 ]
 ```
+
+## 4. SPA
