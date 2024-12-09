@@ -14,7 +14,7 @@ function onClickRow(bookId: Book['id']) {
 </script>
 
 <template>
-  <div class="bookList" cellspacing="0" cellpadding="0">
+  <div class="bookList">
     <div class="tableHeader">
       <div class="title"><h3>TITLE</h3></div>
       <div class="headerItem"><h3>PUBLISHED</h3></div>
@@ -67,6 +67,6 @@ function onClickRow(bookId: Book['id']) {
 .bookList .active {
   max-height: 600px;
   transition: max-height 1s;
-  padding: 1rem 2rem 1rem 2rem;
+  padding: 0 2rem 1rem 2rem;
 }
 </style>
