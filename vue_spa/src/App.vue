@@ -3,9 +3,9 @@ import { RouterView } from 'vue-router'
 </script>
 
 <template>
-  <base>
+  <div>
     <RouterView />
-  </base>
+  </div>
 </template>
 
 <style>
@@ -14,5 +14,4 @@ body {
   font-family: Helvetica, Arial, sans-serif;
   padding: 1rem;
 }
-
 </style>
