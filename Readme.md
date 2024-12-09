@@ -25,3 +25,134 @@ To show the changes between two versions, we just have to calculate the document
 This approach should also work for storing and keeping track of the user's changes made during the day (but not committed/saved), in case the user refreshes the page, or there's a network outage or some other failure.
 
 The main trade-off is the performance hit caused by having to compute the changes each time, or having to compute all the cumulative changes when loading a version of a document, but this can be mitigated with the aforementioned "snapshot" system or some sort of caching to avoid doing so many computations.
+
+## 3. Node.js REST API
+
+### Solution
+
+### Prequisites
+
+- Docker
+- Make
+
+### Intructions
+
+1. Inside the /node_rest_api/ directory, copy .env.example -> .env
+
+```bash
+cp .env.example .env
+```
+
+2. From the main directory, build and start docker containers
+
+```bash
+make db
+```
+
+3. API should be running in [http://localhost:4000/](http://localhost:4000/)
+
+4. A postman collection can be found in /node_rest_api/Reedsy-challenge.postman_collection.json with request examples
+
+### Commands
+
+1. Run tests
+
+Enter docker container
+
+```bash
+make deb
+```
+
+Run unitary tests
+
+```bash
+npm run test
+```
+
+Run e2e tests
+
+```bash
+npm run test:e2e
+```
+
+Run coverage
+
+```bash
+npm run test:cov
+```
+
+### Solution
+
+For this exercise I've created a simple api with 2 directories, books and jobs. I decided to separate them to show that in a real api there could be many types of jobs (not only related to books), although it could have been united only in a jobs folder with the following endpoints: POST /import, POST /export and the getters to get the lists.
+
+Once the controllers were created, I added a validation pipe to check the incoming request payloads. This returns a 400 error (although it could return a 422).
+
+I created a simple Postgres DB with just one table "jobs" represented in the code by the JobEntity (src/entities/job.entity.ts) using the TypeOrm package.
+
+The dummy job executor resides inside the job service, but ideally could be a standalone service of type "cron" or similar.
+
+Finally, I've added some simple unit tests and E2E tests that have almost 100% coverage. They use the main db (for simplicity), but as noted in the code comments, this should be changed to a test db in real life.
+
+### Routes
+
+1. POST /books/import
+   Payload example:
+
+```typescript
+{
+  bookId: string;
+  type: 'word' | 'pdf' | 'wattpad' | 'evernote';
+  url: string;
+}
+```
+
+2. POST /books/export
+   Payload example:
+
+```typescript
+{
+  bookId: string;
+  type: 'epub' | 'pdf';
+}
+```
+
+3. GET /jobs/import
+   Response example:
+
+```json
+[
+  {
+    "id": 1,
+    "type": "import",
+    "status": "finished",
+    "data": {
+      "bookId": "aBookId",
+      "type": "word",
+      "url": "test"
+    },
+    "errorMsg": null,
+    "created_at": "2024-12-09T09:33:50.749Z",
+    "updated_at": "2024-12-09T09:34:50.800Z"
+  }
+]
+```
+
+4. GET /jobs/export
+   Response example:
+
+```json
+[
+  {
+    "id": 2,
+    "type": "export",
+    "status": "finished",
+    "data": {
+      "bookId": "aBookId",
+      "type": "pdf"
+    },
+    "errorMsg": null,
+    "created_at": "2024-12-09T09:33:50.791Z",
+    "updated_at": "2024-12-09T09:34:15.823Z"
+  }
+]
+```
