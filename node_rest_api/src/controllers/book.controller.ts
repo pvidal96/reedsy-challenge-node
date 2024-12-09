@@ -1,8 +1,8 @@
 import { Controller, Post, HttpCode, HttpStatus, Body } from '@nestjs/common';
-import { BookExportOptions } from 'src/dto/bookExportOptions.dto';
-import { BookImportOptions } from 'src/dto/bookImportOptions.dto';
-import { Job } from 'src/dto/job.dto';
-import { BookService } from 'src/providers/book.service';
+import { BookExportOptions } from '../dto/bookExportOptions.dto';
+import { BookImportOptions } from '../dto/bookImportOptions.dto';
+import { Job } from '../dto/job.dto';
+import { BookService } from '../providers/book.service';
 
 @Controller('books')
 export class BookController {
@@ -16,7 +16,7 @@ export class BookController {
   @Post('import')
   importBook(
     @Body() importOptions: BookImportOptions,
-  ): Promise<Job['id'] | null> {
+  ): Promise<Pick<Job, 'id'> | null> {
     return this.bookService.importBook(importOptions);
   }
 
@@ -28,7 +28,7 @@ export class BookController {
   @Post('export')
   exportBook(
     @Body() exportOptions: BookExportOptions,
-  ): Promise<Job['id'] | null> {
+  ): Promise<Pick<Job, 'id'> | null> {
     return this.bookService.exportBook(exportOptions);
   }
 }

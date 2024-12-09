@@ -1,4 +1,4 @@
-import { JobEntity } from 'src/entities/job.entity';
+import { JobEntity } from '../entities/job.entity';
 import { BookImportOptions } from './bookImportOptions.dto';
 import { BookExportOptions } from './bookExportOptions.dto';
 

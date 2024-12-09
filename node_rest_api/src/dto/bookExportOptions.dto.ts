@@ -1,5 +1,5 @@
 import { IsEnum, IsString } from 'class-validator';
-import { BookExportFormats } from 'src/common/constants';
+import { BookExportFormats } from '../common/constants';
 
 /**
  * Represents the arguments received to export a book

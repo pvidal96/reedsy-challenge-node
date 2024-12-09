@@ -1,6 +1,6 @@
 import { Controller, Get, HttpCode, HttpStatus, Param } from '@nestjs/common';
 import { JobService } from '../providers/job.service';
-import { Job } from 'src/dto/job.dto';
+import { Job } from '../dto/job.dto';
 
 @Controller('jobs')
 export class JobController {

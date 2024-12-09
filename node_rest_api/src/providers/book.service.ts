@@ -1,9 +1,8 @@
 import { Injectable } from '@nestjs/common';
-import { BookImportOptions } from 'src/dto/bookImportOptions.dto';
+import { BookImportOptions } from '../dto/bookImportOptions.dto';
 import { JobService } from './job.service';
-import { BookExportOptions } from 'src/dto/bookExportOptions.dto';
-import { Job } from 'src/dto/job.dto';
-import { BookExportFormats } from 'src/common/constants';
+import { BookExportOptions } from '../dto/bookExportOptions.dto';
+import { Job } from '../dto/job.dto';
 
 @Injectable()
 export class BookService {
@@ -13,7 +12,7 @@ export class BookService {
    * Creates a job to import a book
    * @param importOptions BookImportOptions
    */
-  async importBook(importOptions: BookImportOptions): Promise<Job['id']> {
+  async importBook(importOptions: BookImportOptions): Promise<Pick<Job, 'id'>> {
     const newJobId = await this.jobService.createJob('import', importOptions);
 
     // Do some import specific logic
@@ -27,7 +26,7 @@ export class BookService {
    * Creates a job to export a book
    * @param exportOptions BookExportOptions
    */
-  async exportBook(exportOptions: BookExportOptions): Promise<Job['id']> {
+  async exportBook(exportOptions: BookExportOptions): Promise<Pick<Job, 'id'>> {
     const newJobId = await this.jobService.createJob('export', exportOptions);
 
     // Do some export specific logic

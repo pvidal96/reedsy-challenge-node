@@ -1,9 +1,9 @@
 import { Injectable } from '@nestjs/common';
-import { JobEntity } from 'src/entities/job.entity';
+import { JobEntity } from '../entities/job.entity';
 import { Repository } from 'typeorm';
 import { InjectRepository } from '@nestjs/typeorm';
-import { Job } from 'src/dto/job.dto';
-import { BookExportFormats } from 'src/common/constants';
+import { Job } from '../dto/job.dto';
+import { BookExportFormats } from '../common/constants';
 
 @Injectable()
 export class JobService {
@@ -37,7 +37,7 @@ export class JobService {
   async createJob(
     type?: Job['type'],
     data?: Job['data'],
-  ): Promise<JobEntity['id']> {
+  ): Promise<Pick<JobEntity, 'id'>> {
     const created = await this.jobRepository.create({
       type,
       data: JSON.stringify(data),
@@ -45,7 +45,7 @@ export class JobService {
 
     const inserted = await this.jobRepository.insert(created);
 
-    return inserted.identifiers[0].id;
+    return { id: inserted.identifiers[0].id };
   }
 
   /**
