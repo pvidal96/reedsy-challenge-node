@@ -4,7 +4,6 @@ import type { Book } from '../types/book'
 const props = defineProps<{ book: Book }>()
 
 const imgUrl = new URL('../assets/images/' + props.book.cover, import.meta.url).href
-// const imgUrl = '@/assets/images/' + props.book.cover
 </script>
 
 <template>

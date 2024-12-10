@@ -91,6 +91,10 @@ The dummy job executor resides inside the job service, but ideally could be a st
 
 Finally, I've added some simple unit tests and E2E tests that have almost 100% coverage. They use the main db (for simplicity), but as noted in the code comments, this should be changed to a test db in real life.
 
+### Possible improvements
+
+As mentioned above, the e2e tests & unit tests could be improved to target more use cases and use a test-specific database. In the Postman collection, more tests could have been added, i.e. instead of just checking the response code, check the response format and add tests to check for errors & validation.
+
 ### Routes
 
 1. POST /books/import
@@ -208,3 +212,9 @@ I also added a simple store system to simulate retrieving books from an api. It 
 As for testing, I've created some simple unit tests as well as some end-to-end tests with Playwright to check basic functionality in the UI.
 
 Both applications are dockerised, but can run without docker (assuming you have the right node & other requirements installed).
+
+### Possible improvements
+
+- All the texts could have been stored in a locale file to make it easier to add multi-language support in the future.
+- With more time, I'd have created an endpoint to serve the book list and simulate retrieving data from a real API. This also motivates me to develop some error handling and display logic.
+- Tests could cover more features/usages, and the e2e tests could be separated into different files (one per feature/view) and use fixtures to avoid code repetition.
