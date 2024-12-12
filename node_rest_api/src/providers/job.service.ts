@@ -15,7 +15,7 @@ export class JobService {
   /**
    * Returns either all the jobs or just import/export
    * @param type optional 'import'| 'export'
-   * @returns JobEntity[]
+   * @returns Job[]
    */
   async listJobs(type: JobEntity['type']): Promise<Job[] | null> {
     //TODO This should return a Job Dto instead of the DB object, to mask sensitive data
@@ -32,7 +32,7 @@ export class JobService {
   /**
    * Create a new Job
    * @param type optional 'import'| 'export'
-   * @returns JobEntity[]
+   * @returns Job['id']
    */
   async createJob(
     type?: Job['type'],
